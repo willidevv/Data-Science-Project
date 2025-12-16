@@ -1,8 +1,8 @@
 # 📘 Judul Proyek
-*(Isi judul proyek Anda di sini)*
+*Deteksi Phising Link Dengan Machine Learning*
 
 ## 👤 Informasi
-- **Nama:** [...]  
+- **Nama:** [Alfonsus William Hamonangan Sinaga]  
 - **Repo:** [...]  
 - **Video:** [...]  
 
