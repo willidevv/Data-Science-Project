@@ -67,60 +67,34 @@ project/
 
 # 4. 🔧 Data Preparation
 - Cleaning
-·	Handling missing values
-Tidak ada missing values
-·	Removing duplicates
-Tidak ada Duplikasi data
-·	Handling outliers
-Dikarenakan otuliers bukan suatu hal yang harus salah dalam sebuah data, maka untuk itu outliers saya pertahankan dikarenakan alasan ke-khasan dari legitmate takut hilang dan ini memungkinkan salah perhitungan saat nanti membuat model, yang dapat mengakibatkan sebuah data tidak seimbang.
+Pada tahap data cleaning, tidak ditemukan missing values pada seluruh fitur sehingga tidak diperlukan proses imputasi. Selain itu, dataset juga tidak mengandung data duplikat, sehingga seluruh sampel dipertahankan untuk menjaga kelengkapan informasi. Terkait outliers, data tidak dilakukan penghapusan karena outliers tidak selalu merepresentasikan kesalahan, melainkan dapat mencerminkan karakteristik unik dari URL legitimate. Menghilangkan outliers berpotensi menghilangkan pola penting serta menyebabkan ketidakseimbangan data, yang pada akhirnya dapat berdampak negatif pada proses pembelajaran model machine learning.
 
 - Transformasi
-A.	Creating New Feature
-a.	SpecialCharRatio
-  Fitur ini dihitung dari rasio jumlah karakter khusus terhadap panjang URL.
-  ·	Digunakan untuk merepresentasikan tingkat kompleksitas URL.
-  ·	URL phishing cenderung memiliki lebih banyak karakter khusus untuk menyamarkan struktur URL.
-b.	ComplexURL
-  URL legitimate umumnya memiliki struktur yang lebih sederhana dibandingkan URL phishing.
-  Fitur biner yang merepresentasikan kompleksitas struktur URL berdasarkan:
-  ·	Jumlah subdomain yang berlebih, atau
-  ·	Adanya redirect URL.
-c.	HasFinancialKeyword
-  Fitur ini menggabungkan beberapa indikator kata kunci finansial seperti Bank, Pay, dan Crypto.
-  ·	Digunakan untuk mendeteksi target phishing yang umumnya berkaitan dengan informasi keuangan.
-  ·	Nilai 1 menunjukkan adanya indikasi kata kunci finansial.
-d.	LowContentQualityFlag
-  Fitur ini merepresentasikan kualitas konten halaman web berdasarkan keberadaan metadata penting seperti:
-  ·	Judul halaman
-  ·	Deskripsi
-  ·	Informasi hak cipta
-  Alasan Pembuatan Fitur Baru
-  Fitur-fitur ini dirancang untuk meningkatkan daya diskriminasi model dengan menangkap karakteristik struktural, semantik, dan kualitas konten yang umum ditemukan pada URL phishing.
+Pada tahap feature engineering, dilakukan tiga aktivitas utama yaitu creating new features, feature extraction, dan feature selection untuk meningkatkan kualitas representasi data pada tugas deteksi phishing URL. Pada proses creating new features, dibangun beberapa fitur baru yang dirancang untuk menangkap karakteristik khas URL phishing, antara lain SpecialCharRatio yang merepresentasikan tingkat kompleksitas URL berdasarkan rasio karakter khusus, ComplexURL sebagai fitur biner yang menunjukkan kompleksitas struktur URL berdasarkan jumlah subdomain berlebih atau keberadaan redirect, HasFinancialKeyword yang mengindikasikan adanya kata kunci finansial seperti Bank, Pay, dan Crypto, serta LowContentQualityFlag yang mencerminkan rendahnya kualitas konten halaman web berdasarkan ketiadaan metadata penting seperti judul, deskripsi, dan informasi hak cipta. Fitur-fitur ini dibuat untuk meningkatkan daya diskriminasi model dengan menangkap aspek struktural, semantik, dan kualitas konten yang umum ditemukan pada URL phishing.
 
+Selanjutnya, feature extraction dilakukan secara terbatas karena sebagian besar fitur dalam dataset PhiUSIIL telah berupa fitur numerik hasil ekstraksi sebelumnya. Ekstraksi tambahan yang dilakukan meliputi DomainLength sebagai panjang karakter domain dan URLCharLength sebagai panjang URL mentah (jika tersedia), yang bertujuan memberikan informasi tambahan terkait kompleksitas dan pola string URL tanpa menambah dimensi fitur secara berlebihan. Terakhir, dilakukan feature selection menggunakan pendekatan berbasis korelasi untuk mengidentifikasi dan menghapus fitur numerik yang memiliki korelasi tinggi di atas ambang batas tertentu. Proses ini bertujuan mengurangi multikolinearitas, mencegah overfitting, serta meningkatkan efisiensi dan interpretabilitas model, sehingga hanya fitur yang paling informatif dan tidak redundant yang digunakan pada tahap pemodelan.
 
-B.	Feature Extraction
-  Feature extraction dilakukan secara terbatas karena dataset PhiUSIIL sebagian besar sudah berupa fitur numerik hasil ekstraksi sebelumnya
-   Ekstraksi yang Dilakukan
-  a.	DomainLength: panjang karakter domain
-  b.	URLCharLength: panjang URL mentah (jika tersedia)
-  Ekstraksi ini digunakan untuk memberikan informasi tambahan terkait kompleksitas dan pola string URL tanpa menambah dimensi yang berlebihan.
-  C.	Feature Selection
-  Setelah proses pembuatan dan ekstraksi fitur, dilakukan seleksi fitur untuk mengurangi redundansi dan meningkatkan generalisasi model.
-  a.	Metode yang Digunakan
-  ·	Seleksi Fitur berbasis korelasi
-  ·	Fitur numerik dengan korelasi tinggi (di atas threshold tertentu) diidentifikasi dan dihapus
-  b.	Tujuan Feature Selection
-  ·	Mengurangi multikolinearitas
-  ·	Menghindari overfitting
-  ·	Meningkatkan efisiensi dan interpretabilitas model
-  Proses ini memastikan bahwa hanya fitur yang paling informatif dan tidak redundant yang digunakan pada tahap pemodelan.  
-  - Splitting (train/val/test)  
+- Splitting (train/val/test)
+
+–	Training set: 70% (~17.900 sampel)
+ Digunakan untuk melatih model machine learning agar dapat mempelajari pola URL phishing dan legitimate secara optimal.
+–	Validation set: 15% (~3.800 sampel)
+ Digunakan untuk evaluasi sementara dan pemilihan model atau hyperparameter tanpa menyentuh data uji.
+–	Test set: 15% (~3.800 sampel)
+
+Digunakan untuk mengukur performa akhir model secara objektif terhadap data yang benar-benar belum pernah dilihat sebelumnya.
+Pembagian data dilakukan menggunakan stratified split untuk menjaga proporsi kelas phishing dan legitimate tetap seimbang. Dataset dibagi menjadi data latih sebesar 70%, data validasi 15%, dan data uji 15%. Data latih digunakan untuk proses pembelajaran model, data validasi untuk evaluasi sementara, dan data uji untuk mengukur performa akhir model secara objektif. Random state ditetapkan untuk memastikan reprodusibilitas hasil.
+
 
 ---
 
 # 5. 🤖 Modeling
-- **Model 1 – Baseline:** [...]  
-- **Model 2 – Advanced ML:** [...]  
+- **Model 1 – Baseline:**
+  Saya memilih Logistic Regression, dan Logistic Regression adalah algoritma klasifikasi biner yang memprediksi probabilitas suatu data termasuk ke dalam kelas tertentu dengan mengubah kombinasi linier fitur menggunakan fungsi sigmoid. Dan alasan saya memilih model ini dikarenakan model ini cocok untuk algoritma supervised khsusunya klasifikasi biner seperti deteksi phishing link.
+  
+- **Model 2 – Advanced ML:**
+  XGBoost (Extreme Gradient Boosting) adalah algoritma ensemble berbasis gradient boosting yang membangun model secara bertahap menggunakan pohon keputusan. Setiap pohon baru dilatih untuk memperbaiki kesalahan (residual) dari model sebelumnya dengan meminimalkan fungsi loss melalui optimisasi gradien.Saya memilih model ini dikarenakan saya mempertimbangkan tentang kecepatan akurasi terhadap data dengan overfitting minim.
+  
 - **Model 3 – Deep Learning:** [...]  
 
 ---
