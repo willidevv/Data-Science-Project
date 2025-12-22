@@ -54,9 +54,9 @@ project/
 ---
 
 # 3. 📊 Dataset
-- **Sumber:** [...]  
-- **Jumlah Data:** [...]  
-- **Tipe:** [...]  
+- **Sumber:** https://archive.ics.uci.edu/dataset/967/phiusiil+phishing+url+dataset
+- **Jumlah Data:** 235795
+- **Tipe:** Categorical, Integer, Continuous
 
 ### Fitur Utama
 | Fitur | Deskripsi |
@@ -66,9 +66,55 @@ project/
 ---
 
 # 4. 🔧 Data Preparation
-- Cleaning (missing/duplicate/outliers)  
-- Transformasi (encoding/scaling)  
-- Splitting (train/val/test)  
+- Cleaning
+·	Handling missing values
+Tidak ada missing values
+·	Removing duplicates
+Tidak ada Duplikasi data
+·	Handling outliers
+Dikarenakan otuliers bukan suatu hal yang harus salah dalam sebuah data, maka untuk itu outliers saya pertahankan dikarenakan alasan ke-khasan dari legitmate takut hilang dan ini memungkinkan salah perhitungan saat nanti membuat model, yang dapat mengakibatkan sebuah data tidak seimbang.
+
+- Transformasi
+A.	Creating New Feature
+a.	SpecialCharRatio
+  Fitur ini dihitung dari rasio jumlah karakter khusus terhadap panjang URL.
+  ·	Digunakan untuk merepresentasikan tingkat kompleksitas URL.
+  ·	URL phishing cenderung memiliki lebih banyak karakter khusus untuk menyamarkan struktur URL.
+b.	ComplexURL
+  URL legitimate umumnya memiliki struktur yang lebih sederhana dibandingkan URL phishing.
+  Fitur biner yang merepresentasikan kompleksitas struktur URL berdasarkan:
+  ·	Jumlah subdomain yang berlebih, atau
+  ·	Adanya redirect URL.
+c.	HasFinancialKeyword
+  Fitur ini menggabungkan beberapa indikator kata kunci finansial seperti Bank, Pay, dan Crypto.
+  ·	Digunakan untuk mendeteksi target phishing yang umumnya berkaitan dengan informasi keuangan.
+  ·	Nilai 1 menunjukkan adanya indikasi kata kunci finansial.
+d.	LowContentQualityFlag
+  Fitur ini merepresentasikan kualitas konten halaman web berdasarkan keberadaan metadata penting seperti:
+  ·	Judul halaman
+  ·	Deskripsi
+  ·	Informasi hak cipta
+  Alasan Pembuatan Fitur Baru
+  Fitur-fitur ini dirancang untuk meningkatkan daya diskriminasi model dengan menangkap karakteristik struktural, semantik, dan kualitas konten yang umum ditemukan pada URL phishing.
+
+
+B.	Feature Extraction
+  Feature extraction dilakukan secara terbatas karena dataset PhiUSIIL sebagian besar sudah berupa fitur numerik hasil ekstraksi sebelumnya
+   Ekstraksi yang Dilakukan
+  a.	DomainLength: panjang karakter domain
+  b.	URLCharLength: panjang URL mentah (jika tersedia)
+  Ekstraksi ini digunakan untuk memberikan informasi tambahan terkait kompleksitas dan pola string URL tanpa menambah dimensi yang berlebihan.
+  C.	Feature Selection
+  Setelah proses pembuatan dan ekstraksi fitur, dilakukan seleksi fitur untuk mengurangi redundansi dan meningkatkan generalisasi model.
+  a.	Metode yang Digunakan
+  ·	Seleksi Fitur berbasis korelasi
+  ·	Fitur numerik dengan korelasi tinggi (di atas threshold tertentu) diidentifikasi dan dihapus
+  b.	Tujuan Feature Selection
+  ·	Mengurangi multikolinearitas
+  ·	Menghindari overfitting
+  ·	Meningkatkan efisiensi dan interpretabilitas model
+  Proses ini memastikan bahwa hanya fitur yang paling informatif dan tidak redundant yang digunakan pada tahap pemodelan.  
+  - Splitting (train/val/test)  
 
 ---
 
