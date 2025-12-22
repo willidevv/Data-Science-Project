@@ -18,12 +18,14 @@
 
 # 2. 📄 Problem & Goals
 **Problem Statements:**  
-- [...]  
-- [...]  
+1.	Model harus bisa dapat mendapatkan hasil secara cepat
+2.	Sistem harus dapat mengidentifikasi pola tautan yang mencurigakan
+3.	Dibutuhkan model deep learning yang mampu belajar representasi fitur kompleks
 
 **Goals:**  
-- [...]  
-- [...]  
+1.	Membangun model ML dengan metode yang sesuai konteks masalah
+2.	Membangun sistem ML yang mampu mengidentifikasi tautan URL di luar dataset
+3.	Menggunakan metode yang sesuai dengan konteks masalah dalam merepresentasikan deep learning
 
 ---
 ## 📁 Struktur Folder
