@@ -71,8 +71,7 @@ Pada tahap data cleaning, tidak ditemukan missing values pada seluruh fitur sehi
 
 - Transformasi
 Pada tahap feature engineering, dilakukan tiga aktivitas utama yaitu creating new features, feature extraction, dan feature selection untuk meningkatkan kualitas representasi data pada tugas deteksi phishing URL. Pada proses creating new features, dibangun beberapa fitur baru yang dirancang untuk menangkap karakteristik khas URL phishing, antara lain SpecialCharRatio yang merepresentasikan tingkat kompleksitas URL berdasarkan rasio karakter khusus, ComplexURL sebagai fitur biner yang menunjukkan kompleksitas struktur URL berdasarkan jumlah subdomain berlebih atau keberadaan redirect, HasFinancialKeyword yang mengindikasikan adanya kata kunci finansial seperti Bank, Pay, dan Crypto, serta LowContentQualityFlag yang mencerminkan rendahnya kualitas konten halaman web berdasarkan ketiadaan metadata penting seperti judul, deskripsi, dan informasi hak cipta. Fitur-fitur ini dibuat untuk meningkatkan daya diskriminasi model dengan menangkap aspek struktural, semantik, dan kualitas konten yang umum ditemukan pada URL phishing.
-
-Selanjutnya, feature extraction dilakukan secara terbatas karena sebagian besar fitur dalam dataset PhiUSIIL telah berupa fitur numerik hasil ekstraksi sebelumnya. Ekstraksi tambahan yang dilakukan meliputi DomainLength sebagai panjang karakter domain dan URLCharLength sebagai panjang URL mentah (jika tersedia), yang bertujuan memberikan informasi tambahan terkait kompleksitas dan pola string URL tanpa menambah dimensi fitur secara berlebihan. Terakhir, dilakukan feature selection menggunakan pendekatan berbasis korelasi untuk mengidentifikasi dan menghapus fitur numerik yang memiliki korelasi tinggi di atas ambang batas tertentu. Proses ini bertujuan mengurangi multikolinearitas, mencegah overfitting, serta meningkatkan efisiensi dan interpretabilitas model, sehingga hanya fitur yang paling informatif dan tidak redundant yang digunakan pada tahap pemodelan.
+feature extraction dilakukan secara terbatas karena sebagian besar fitur dalam dataset PhiUSIIL telah berupa fitur numerik hasil ekstraksi sebelumnya. Ekstraksi tambahan yang dilakukan meliputi DomainLength sebagai panjang karakter domain dan URLCharLength sebagai panjang URL mentah (jika tersedia), yang bertujuan memberikan informasi tambahan terkait kompleksitas dan pola string URL tanpa menambah dimensi fitur secara berlebihan. Terakhir, dilakukan feature selection menggunakan pendekatan berbasis korelasi untuk mengidentifikasi dan menghapus fitur numerik yang memiliki korelasi tinggi di atas ambang batas tertentu. Proses ini bertujuan mengurangi multikolinearitas, mencegah overfitting, serta meningkatkan efisiensi dan interpretabilitas model, sehingga hanya fitur yang paling informatif dan tidak redundant yang digunakan pada tahap pemodelan.
 
 - Splitting (train/val/test)
 
@@ -103,18 +102,19 @@ Pembagian data dilakukan menggunakan stratified split untuk menjaga proporsi kel
 **Metrik:** Accuracy / F1 / MAE / MSE (pilih sesuai tugas)
 
 ### Hasil Singkat
-| Model | Score | Catatan |
-|-------|--------|---------|
-| Baseline | [...] | |
-| Advanced | [...] | |
-| Deep Learning | [...] | |
+| Model                          | Score                      | Catatan                                                                 |
+| ------------------------------ | -------------------------- | ----------------------------------------------------------------------- |
+| Baseline (Logistic Regression) | Accuracy ≈ 1.00, F1 ≈ 1.00 | Model sederhana namun sangat efektif pada fitur hasil engineering       |
+| Advanced (XGBoost)             | Accuracy = 1.00, F1 = 1.00 | Performa terbaik dan paling stabil pada train, validation, dan test set |
+| Deep Learning (MLP)            | Accuracy ≈ 1.00, F1 ≈ 1.00 | Performa tinggi, namun waktu training lebih lama dibanding ML klasik    |
+
 
 ---
 
 # 7. 🏁 Kesimpulan
-- Model terbaik: [...]  
-- Alasan: [...]  
-- Insight penting: [...]  
+- Model terbaik: XGBoost
+- Alasan: Memberikan performa paling stabil dengan akurasi dan F1-score maksimal, serta lebih efisien dibandingkan Deep Learning pada data tabular
+- Insight penting: Feature engineering berbasis karakteristik URL memiliki pengaruh yang sangat besar dalam mendeteksi phishing, bahkan memungkinkan model klasik mencapai performa mendekati sempurna
 
 ---
 
@@ -128,3 +128,14 @@ Pembagian data dilakukan menggunakan stratified split untuk menjaga proporsi kel
 
 # 9. 🔁 Reproducibility
 Gunakan environment:
+numpy = 1.24.3
+pandas = 2.0.3
+scikit-learn = 1.3.0
+matplotlib = 3.7.2
+seaborn = 0.12.2
+# Deep Learning Framework
+tensorflow = 2.14.0
+Keras == 2.20
+# Additional libraries
+xgboost = 1.7.6
+
