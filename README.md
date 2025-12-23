@@ -61,8 +61,9 @@ project/
 ### Fitur Utama
 | Fitur | Deskripsi |
 |------|-----------|
-| ... | ... |
-
+| URLLength | Panjang URL |
+| DomainLength  |   Panjang Domain  |
+| label  | label    |
 ---
 
 # 4. 🔧 Data Preparation
@@ -94,7 +95,8 @@ Pembagian data dilakukan menggunakan stratified split untuk menjaga proporsi kel
 - **Model 2 – Advanced ML:**
   XGBoost (Extreme Gradient Boosting) adalah algoritma ensemble berbasis gradient boosting yang membangun model secara bertahap menggunakan pohon keputusan. Setiap pohon baru dilatih untuk memperbaiki kesalahan (residual) dari model sebelumnya dengan meminimalkan fungsi loss melalui optimisasi gradien.Saya memilih model ini dikarenakan saya mempertimbangkan tentang kecepatan akurasi terhadap data dengan overfitting minim.
   
-- **Model 3 – Deep Learning:** [...]  
+- **Model 3 – Deep Learning:**
+  Multilayer Perceptron dipilih karena kemampuannya dalam mempelajari hubungan non-linear antar fitur URL hasil ekstraksi, yang menjadi karakteristik utama dalam deteksi phishing link, serta kesesuaiannya untuk data tabular pada klasifikasi biner.
 
 ---
 
