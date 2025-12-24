@@ -1,0 +1,65 @@
+# =========================
+# Data & Dataset (Besar)
+# =========================
+data/
+dataset/
+datasets/
+*.csv
+*.tsv
+*.parquet
+*.h5
+*.pkl
+*.joblib
+*.npy
+*.npz
+
+# =========================
+# Model & Checkpoints
+# =========================
+models/
+checkpoints/
+*.model
+*.ckpt
+*.pt
+*.pth
+
+# =========================
+# Output & Artifacts
+# =========================
+outputs/
+results/
+logs/
+*.log
+
+# =========================
+# Jupyter Notebook
+# =========================
+.ipynb_checkpoints/
+
+# =========================
+# Python Cache
+# =========================
+__pycache__/
+*.pyc
+*.pyo
+
+# =========================
+# Virtual Environment
+# =========================
+venv/
+env/
+.venv/
+
+# =========================
+# OS / Editor Files
+# =========================
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# =========================
+# Temporary Files
+# =========================
+*.tmp
+*.temp
