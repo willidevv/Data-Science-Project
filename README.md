@@ -4,7 +4,7 @@
 ## 👤 Informasi
 - **Nama:** [Alfonsus William Hamonangan Sinaga]  
 - **Repo:** [https://github.com/willidevv/Data-Science-Project.git]  
-- **Video:** [...]  
+- **Video:** [https://youtu.be/FZJPqpQv6no]  
 
 ---
 
